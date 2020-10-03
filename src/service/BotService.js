@@ -14,19 +14,14 @@ async function doSomething(item) {
     // Checking if the item was saved will keep the bot from processing anything twice.
     if (!item.saved) {
         console.log(`BotService processing item: ${item.id}`.green)
-
         //
         // CODE STARTS HERE //
-
         console.log(item.body.yellow)
 
         let cmd = command.buildCMD(item.body);
         if (cmd != null) {
-            console.log("assigning flairs...")
             await assignFlairs(cmd, item);
-
         } else {
-            console.log("replying with error message")
             await requester.getComment(item.id).reply("Comment must be formatted as a command with prefix = !")
         }
 
@@ -57,17 +52,12 @@ async function assignFlairs(cmd, item) {
             console.log("not found within the list. replying with error message.")
             return requester.getComment(item.id).reply(`Sorry, but ${cmd.args[0]} does not exist within the list of flairs!\n\nTry ${fl}`)
         } else {
-            console.log("Found flair within list:", foundFlair)
-            console.log("requester getting user by name: ", item.author.name)
-            console.log("assigning flair...")
             let flairText = new String();
             for (i = 1; i < cmd.args.length; i++) {
                 flairText = flairText + " " + cmd.args[i]
             }
 
-
             let defaultText;
-            console.log(`Getting user flair : "${cmd.args[0]}"`)
             await requester.getSubreddit(process.env.MASTER_SUB).getUserFlairTemplates()
                 .then(templates => {
                     let foundTemplate = templates.find(template => template.flair_css_class == cmd.args[0])

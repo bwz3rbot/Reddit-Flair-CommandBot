@@ -84,11 +84,9 @@ const runOnceIndefinately = function () {
         newItem = newItems.pop()
         return actionRequester.getComment(newItem.id).fetch()
             .then((item) => {
-
                 // BOT SERVICE CODE RUNS HERE!!
                 BotService.doSomething(item)
                     .then(runOnceIndefinately)
-
             })
     } else {
         if (logging) {
