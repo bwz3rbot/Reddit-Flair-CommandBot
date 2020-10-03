@@ -36,7 +36,8 @@ Here you will tell reddit about your bot and get the values needed to authentica
 <img src='https://i.imgur.com/yq8akJ7.png'>
 
 
-Before beginning the following steps, you must create a thread for the bot to follow and copy the thread id from the url bar.
+Before beginning the following steps, you must create a thread in your subreddit for the bot to follow.\
+Take not of the thread id from the url bar. You'll need to enter this in the pw.env file
 
 The post body should contain instructions on how to use the bot. For example:
 ```
@@ -104,9 +105,3 @@ Run the bot:
 ```
 node src/app.js
 ```
-
-### What now?
-
-Open up your favorite IDE and go into the BotService.js file.\
-This is where you will write all of your code.\
-You have access to the Snoowrap API here and a single comment from the defined thread.
