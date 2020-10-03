@@ -1,0 +1,11 @@
+USER_AGENT=''
+CLIENT_ID=''
+CLIENT_SECRET=''
+REDDIT_USER=''
+REDDIT_PASS=''
+MASTER_SUB=''
+DEBUG_CODE="false"
+DEBUG_NETWORK="false"
+THREAD_ID="j4596b"
+LIMIT="5"
+FLAIRS_LIST="blue,red,green,yellow,cake,dingus,coolio"
