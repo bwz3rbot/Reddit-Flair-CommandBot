@@ -64,7 +64,7 @@ async function assignFlairs(cmd, item) {
             for (i = 1; i < cmd.args.length; i++) {
                 flairText = flairText + " " + cmd.args[i]
             }
-            console.log("Flair text will be: ", flairText);
+
 
             let defaultText;
             console.log(`Getting user flair : "${cmd.args[0]}"`)
@@ -77,7 +77,7 @@ async function assignFlairs(cmd, item) {
             if (cmd.args.length >= 2) {
                 defaultText = flairText
             }
-
+            console.log("Flair text will be: ", defaultText.trim());
             return requester.getUser(item.author.name).assignFlair({
                 subredditName: process.env.MASTER_SUB,
                 text: defaultText.trim(),
@@ -93,7 +93,7 @@ async function assignFlairs(cmd, item) {
 
 // 
 // Leave this function alone!
-const saveItem = function (item) {
+async function saveItem(item) {
     console.log("saving the comment...".grey)
     return requester.getComment(item.id).save();
 }
