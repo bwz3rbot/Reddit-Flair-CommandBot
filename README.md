@@ -69,7 +69,9 @@ LIMIT defaults to 6 but can be set higher to check for missed requests while the
 DEBUG_CODE will display information about the submission queue.\
 DEBUG_NETWORK will display all the http error codes received. After the initial startup, status code 200 is expected every 20 seconds.\
 THREAD_ID is found in the url of your submission. See the following url:\
-https://www.reddit.com/r/Bwz3rBot/comments/j4ispn/follow_this_post/\
+https://www.reddit.com/r/Bwz3rBot/comments/j4ispn/follow_this_post/
+
+
 FLAIRS_LIST must be formatted as below:
 ```
 USER_AGENT=''
