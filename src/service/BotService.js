@@ -23,12 +23,12 @@ async function doSomething(item) {
         console.log(`From: u/${item.author.name.yellow}`)
         console.log(`Command: ${item.body.yellow}`)
 
-        let cmd = command.buildCMD(item.body);
-        if (cmd != null) {
+        // let cmd = command.buildCMD(item.body);
+        // if (cmd != null) {
             await assignFlairs(cmd, item);
-        } else {
-            await requester.getComment(item.id).reply("Comment must be formatted as a command with prefix = !")
-        }
+        // } else {
+        //     await requester.getComment(item.id).reply("Comment must be formatted as a command with prefix = !")
+        // }
 
 
         // CODE ENDS HERE //
@@ -45,10 +45,10 @@ async function doSomething(item) {
 // Write your functions down here and call them inside of doSomething.
 
 async function assignFlairs(cmd, item) {
-    console.log("command: ", cmd)
+    // console.log("command: ", cmd)
 
 
-    if (cmd.directive == "flair") {
+    // if (cmd.directive == "flair") {
         // Process the Command
         su = await loadSavedUsers();
         savedUsers = su.split(',');
@@ -76,10 +76,10 @@ async function assignFlairs(cmd, item) {
             cssClass: cssClass
         })
         await saveUserName(item.author.name)
-    } else {
-        console.log("command directive was NOT flair".red)
-        await requester.getComment(item.id).reply('Try using command: !flair')
-    }
+    // } else {
+    //     console.log("command directive was NOT flair".red)
+    //     await requester.getComment(item.id).reply('Try using command: !flair')
+    // }
 
 }
 
