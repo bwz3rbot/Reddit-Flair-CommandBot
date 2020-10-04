@@ -4,6 +4,10 @@ const requester = require('../config/snoo-config').actionRequester;
 const command = require('../util/command');
 const fl = process.env.FLAIRS_LIST;
 const flairsList = fl.split(',');
+const fs = require('fs');
+const {
+    request
+} = require('http');
 
 // This is where your code will go. It must return a promise!
 // This function is called each time a new message is popped from the array.
@@ -16,7 +20,8 @@ async function doSomething(item) {
         console.log(`BotService processing item: ${item.id}`.green)
         //
         // CODE STARTS HERE //
-        console.log(item.body.yellow)
+        console.log(`From: u/${item.author.name.yellow}`)
+        console.log(`Command: ${item.body.yellow}`)
 
         let cmd = command.buildCMD(item.body);
         if (cmd != null) {
@@ -32,7 +37,7 @@ async function doSomething(item) {
         await saveItem(item) // Leave this line where it is!
         return console.log(`item  ${item.id} successfully processed!`)
     } else {
-        return console.log(`item ${item.id} saved already. Skipping...`)
+        return console.log(`item ${item.id} saved already. Skipping...`.gray)
     }
 }
 
@@ -41,43 +46,66 @@ async function doSomething(item) {
 
 async function assignFlairs(cmd, item) {
     console.log("command: ", cmd)
-    // Process the Command
+
+
     if (cmd.directive == "flair") {
-        console.log("command directive was flair.".green)
-        let flairToAssign = cmd.args[0];
-        console.log("flair to assign: ", flairToAssign)
-        let foundFlair = flairsList.find(el => el == flairToAssign)
-
-        if (foundFlair == undefined) {
-            console.log("not found within the list. replying with error message.")
-            return requester.getComment(item.id).reply(`Sorry, but ${cmd.args[0]} does not exist within the list of flairs!\n\nTry ${fl}`)
-        } else {
-            let flairText = new String();
-            for (i = 1; i < cmd.args.length; i++) {
-                flairText = flairText + " " + cmd.args[i]
-            }
-
-            let defaultText;
-            await requester.getSubreddit(process.env.MASTER_SUB).getUserFlairTemplates()
-                .then(templates => {
-                    let foundTemplate = templates.find(template => template.flair_css_class == cmd.args[0])
-                    console.log("Found this template: ", foundTemplate)
-                    defaultText = foundTemplate.flair_text
-                })
-            if (cmd.args.length >= 2) {
-                defaultText = flairText
-            }
-            console.log("Flair text will be: ", defaultText.trim());
-            return requester.getUser(item.author.name).assignFlair({
-                subredditName: process.env.MASTER_SUB,
-                text: defaultText.trim(),
-                cssClass: cmd.args[0],
-            })
+        // Process the Command
+        su = await loadSavedUsers();
+        savedUsers = su.split(',');
+        let user = savedUsers.find(user => user == item.author.name)
+        if (user) {
+            console.log("Found user within the array. Returning from function with Error Message...".red)
+            return requester.getComment(item.id).reply("Flair already set!")
         }
 
+        let randomIndex = Math.floor(Math.random() * Math.floor(flairsList.length))
+        let foundFlair = flairsList[randomIndex]
+        let defaultText;
+        let cssClass;
+        await requester.getSubreddit(process.env.MASTER_SUB).getUserFlairTemplates()
+            .then(templates => {
+                const foundTemplate = templates.find(template => template.flair_css_class == foundFlair)
+                console.log("Found this template: ", foundTemplate)
+                defaultText = foundTemplate.flair_text;
+                cssClass = foundTemplate.flair_css_class
+            })
+        console.log("Flair text will be: ", defaultText.trim());
+        await requester.getUser(item.author.name).assignFlair({
+            subredditName: process.env.MASTER_SUB,
+            text: defaultText.trim(),
+            cssClass: cssClass
+        })
+        await saveUserName(item.author.name)
     } else {
         console.log("command directive was NOT flair".red)
+        await requester.getComment(item.id).reply('Try using command: !flair')
     }
+
+}
+
+// Load Saved Users File
+async function loadSavedUsers() {
+    return new Promise((resolve, reject) => {
+        fs.readFile('./users.json', 'utf8', function (err, data) {
+            if (err) {
+                console.log("No existing data!".red)
+                reject(null)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+
+}
+
+// 
+async function saveUserName(name) {
+    console.log("saving user to file...".green)
+    fs.appendFile('./users.json', `${name.trim()},`, (err) => {
+        if (err) {
+            throw err
+        }
+    });
 
 }
 

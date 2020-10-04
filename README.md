@@ -1,13 +1,12 @@
-# Reddit Bot Flair Update Command Bot
+# Reddit Bot Flair Randomizer Command Bot
 This bot will follow a thread and __must have admin rights__ for setting suggested sort to new.\
 Its purpose is to have a thread on your own subreddit where users can submit commands to update their user flairs.
-
 
 ## About <a name = "about"></a>
 
 This bot __must have admin rights__ on the sub for setting the suggested sort to new.\
 It will get the most recent top level comments from a specific thread which will be defined in the pw.env file.\
-Each time a new comment is found it will validate the command and will update the user flair accordingly.
+Each time a new comment is found it will validate the command and will update the user flair to a random flair as defined in the pw.env file.
 
 
 ### Prerequisites
@@ -43,16 +42,10 @@ The post body should contain instructions on how to use the bot. For example:
 ```
 To use this bot you must format a command like this:
 
-!flair <flair css class> <optional flair text>
+!flair 
 
-For example:
+This will result in granting a randomized flair.
 
-!flair red my flair text
-
-This will result in your user flair being updated to a red background with text of "flair text"
-
-
-Try !flair help for a list of css class to choose from
 ```
 
 To create new flairs to add to your bot go into your Mod Dashboard and under Flairs & Emojis click on User flair.\
