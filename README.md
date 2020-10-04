@@ -1,11 +1,11 @@
 # Reddit Bot Flair Update Command Bot
-This bot will follow a thread and __must have admin rights__ for setting suggested sort to new.\
+This bot will follow a thread and __must have admin rights__ for setting suggested sort to new and assigning flairs.\
 Its purpose is to have a thread on your own subreddit where users can submit commands to update their user flairs.
 
 
 ## About <a name = "about"></a>
 
-This bot __must have admin rights__ on the sub for setting the suggested sort to new.\
+This bot __must have admin rights__ on the sub for setting suggested sort to new and assigning flairs.\
 It will get the most recent top level comments from a specific thread which will be defined in the pw.env file.\
 Each time a new comment is found it will validate the command and will update the user flair accordingly.
 
@@ -65,7 +65,7 @@ Each of these css classes will need to be copy and pasted into your pw.env file.
 Navigate to pw.envEXAMPLE and remove EXAMPLE from the end of the filename.\
 Now fill it in with the data you found at reddit.com/prefs/apps\
 REDDIT_USER and REDDIT_PASS are the username and password of the bot account.\
-MASTER_SUB will be the subreddit the bot will work on. The bot __must have admin rights__ to set the suggested sort of this thread to new.\
+MASTER_SUB will be the subreddit the bot will work on. The bot __must have admin rights__ for setting suggested sort to new and assigning flairs.\
 LIMIT defaults to 6 but can be set higher to check for missed requests while the bot was offline.\
 DEBUG_CODE will display information about the submission queue.\
 DEBUG_NETWORK will display all the http error codes received. After the initial startup, status code 200 is expected every 20 seconds.\
