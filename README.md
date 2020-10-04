@@ -61,7 +61,7 @@ Now give it a unique css class. No spaces, only dashes.\
 Each of these css classes will need to be copy and pasted into your pw.env file.
 <img src='https://i.imgur.com/7OzENr5.png'>
 
-
+Download the souce code on this page.\
 Navigate to pw.envEXAMPLE and remove EXAMPLE from the end of the filename.\
 Now fill it in with the data you found at reddit.com/prefs/apps\
 REDDIT_USER and REDDIT_PASS are the username and password of the bot account.\
