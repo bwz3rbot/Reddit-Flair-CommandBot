@@ -25,7 +25,7 @@ async function doSomething(item) {
 
         // let cmd = command.buildCMD(item.body);
         // if (cmd != null) {
-            await assignFlairs(cmd, item);
+            await assignFlairs(item);
         // } else {
         //     await requester.getComment(item.id).reply("Comment must be formatted as a command with prefix = !")
         // }
@@ -44,7 +44,7 @@ async function doSomething(item) {
 // 
 // Write your functions down here and call them inside of doSomething.
 
-async function assignFlairs(cmd, item) {
+async function assignFlairs(item) {
     // console.log("command: ", cmd)
 
 
@@ -54,8 +54,9 @@ async function assignFlairs(cmd, item) {
         savedUsers = su.split(',');
         let user = savedUsers.find(user => user == item.author.name)
         if (user) {
-            console.log("Found user within the array. Returning from function with Error Message...".red)
-            return requester.getComment(item.id).reply("Flair already set!")
+            console.log("Found user already to be within users.json.".red)
+            // return requester.getComment(item.id).reply("Flair already set!")
+            return;
         }
 
         let randomIndex = Math.floor(Math.random() * Math.floor(flairsList.length))
